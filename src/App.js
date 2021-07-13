@@ -5,22 +5,25 @@ import './App.css';
 import Header from './components/Header/Header';
 
 function App() {
-	const [flashcards, setFlashcards] = useState(sample);
+	const [flashcards, setFlashcards] = useState([]);
 	const [categories, setCategories] = useState([]);
 
 	useEffect(() => {
 		axios.get('https://opentdb.com/api_category.php').then((res) => {
 			setCategories(res.data.trivia_categories);
 		});
+		handleGenerate(null, 5, 10, 'easy');
 	}, []);
 
-	const handleGenerate = (e, amount, category) => {
-		e.preventDefault();
+	const handleGenerate = (e, amount, category, difficulty) => {
+		if (e) e.preventDefault();
+		console.log(category);
 		axios
-			.get('https://opentdb.com/api.php', {
+			.get(`https://opentdb.com/api.php`, {
 				params: {
 					amount: amount,
 					category: category,
+					difficulty: difficulty,
 				},
 			})
 			.then((res) => {
@@ -56,26 +59,5 @@ function App() {
 		</>
 	);
 }
-
-const sample = [
-	{
-		id: 1,
-		question: 'What is 2 * 2?',
-		answer: '4',
-		options: ['2', '3', '4', '5'],
-	},
-	{
-		id: 2,
-		question: 'What is 4 - 2?',
-		answer: '2',
-		options: ['2', '3', '4', '5'],
-	},
-	{
-		id: 3,
-		question: 'What is 3 + 2?',
-		answer: '5',
-		options: ['2', '3', '4', '5'],
-	},
-];
 
 export default App;

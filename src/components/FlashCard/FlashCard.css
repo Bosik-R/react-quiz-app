@@ -1,0 +1,53 @@
+.card {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 10px;
+	box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.3);
+	background-color: white;
+	transform: rotateY(var(--rotate-y, 0));
+	transform: perspective(1000px) rotateY(var(--rotate-y, 0))
+		translateY(var(--translate-y, 0));
+	transform-style: preserve-3d;
+	transition: 150ms;
+	cursor: pointer;
+}
+
+.card:hover {
+	--translate-y: -2px;
+	box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+}
+
+.card.flip {
+	--rotate-y: 180deg;
+}
+
+.card .front {
+	left: 0;
+}
+
+.card .front,
+.card .back {
+	position: absolute;
+	padding: 16px;
+	backface-visibility: hidden;
+}
+
+.card .back {
+	transform: rotateY(180deg);
+}
+
+.flashcard-options {
+	margin-top: 6px;
+}
+
+.flashcard-option {
+	margin-top: 3px;
+	color: #555;
+	font-size: 12px;
+}
+
+.flashcard-option:first-child {
+	margin-top: 0;
+}
